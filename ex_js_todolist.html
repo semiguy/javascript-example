@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>To Do List</title>
+    <style>
+        #add-btn {
+            padding: 5px 10px;
+            border: 0;
+            background: #f80;
+            color: white;
+            border-radius: 5px;
+        }
+        ul {
+            padding: 0;
+            list-style-position: inside;
+        }
+        li {
+            border-bottom: 1px solid #999;
+            padding: 5px 0;
+        }
+        .active {
+            background: #abc;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="title">할 일 목록</h1><hr />
+    <button id="add-btn">목록 추가</button>
+
+    <ul id="list">
+        <li>제목 1</li>
+        <li>제목 2</li>
+        <li>제목 3</li>
+        <li>제목 4</li>
+    </ul>
+
+    <script>
+        // 변수 초기화
+        var title = document.getElementById('title');
+        var list = document.getElementById('list');
+        var li = list.getElementsByTagName('li');
+        var addBtn = document.getElementById('add-btn');
+
+        // 이벤트 리스너 연결 및 목록 표시
+        //for (var i = 0; i < li.length; i++) {
+        //    li[i].addEventListener('click', activeItem);
+        //};
+        list.addEventListener('click', activeItem);
+
+        function activeItem(event) {
+
+            // 해당 목록을 클릭하면 제목 영역 표시
+            //title.innerHTML = this.innerText;
+            // 목록 스타일 초기화
+            //for (var i = 0; i < li.length; i++) {
+            //    li[i].removeAttribute('class');
+            //}
+            //this.setAttribute('class', 'active');
+
+            // 클릭한 노드가 li 이면
+            // 반환되는 값이 대문자 이므로 대문자로 비교
+            if (event.target.nodeName == 'LI') {
+                title.innerHTML = event.target.innerText;
+
+                // 목록 스타일 초기화
+                for (var i = 0; i < event.target.parentNode.children.length; i++) {
+                    event.target.parentNode.children[i].removeAttribute('class');
+                }
+
+                // 클릭한 목록 스타일 지정
+                event.target.setAttribute('class', 'active');
+            }
+        };
+
+        // 제목 입력
+        addBtn.addEventListener('click', function () {
+            var txt = prompt('제목 입력');
+            list.innerHTML += '<li>' + txt + '</li>';
+        });
+    </script>
+</body>
+</html>
